@@ -36,10 +36,6 @@ lookup_clock_line(uint32_t periph_base)
             return (struct cline){.en=&RCC->APB2ENR, .bit=bit};
         return (struct cline){.en=&RCC->APB2ENR, .rst=&RCC->APB2RSTR, .bit=bit};
     }
-#ifdef USART6_BASE
-    if (periph_base == USART6_BASE)
-        return (struct cline){.en=&RCC->APB1ENR,.rst=&RCC->APB1RSTR,.bit=1<<9};
-#endif
     uint32_t bit = 1 << ((periph_base - APB1PERIPH_BASE) / 0x400);
     return (struct cline){.en=&RCC->APB1ENR, .rst=&RCC->APB1RSTR, .bit=bit};
 }
