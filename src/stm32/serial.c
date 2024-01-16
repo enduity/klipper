@@ -96,7 +96,12 @@ serial_init(void)
     USARTx->CR1 = CR1_FLAGS;
     armcm_enable_irq(USARTx_IRQHandler, USARTx_IRQn, 0);
 
+#if CONFIG_STM32_SERIAL_USART6
+    gpio_peripheral(GPIO_Rx, GPIO_FUNCTION(8), 1);
+    gpio_peripheral(GPIO_Tx, GPIO_FUNCTION(8), 0);
+#else
     gpio_peripheral(GPIO_Rx, GPIO_FUNCTION(7), 1);
     gpio_peripheral(GPIO_Tx, GPIO_FUNCTION(7), 0);
+#endif
 }
 DECL_INIT(serial_init);
